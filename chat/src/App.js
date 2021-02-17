@@ -7,7 +7,7 @@ import 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyBVWYvKa7pxSYlxXD9Kl4ztPKWbrm84_iY",
   authDomain: "peak-emitter-303107.firebaseapp.com",
   projectId: "peak-emitter-303107",
@@ -20,6 +20,7 @@ firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+
 function App() {
 
   const [user] = useAuthState(auth);
@@ -29,7 +30,7 @@ function App() {
       <header className="App-header">
         {
           user ?<div className="chat">
-          <div className="head"></div>
+          <div className="head"><SignOut/></div>
           <div className="txts"><Chat/></div>
           <div className="input"><input className="textInput"></input></div>
         </div> : <SignIn/>
@@ -44,19 +45,26 @@ function SignIn(){
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
+
   return(
     <button id="sign" onClick={signInWithGoogle}>Sign in with google</button>
   );
 }
+function SignOut() {
+  return auth.currentUser && (
+    <button className="sign-out" onClick={() => auth.signOut()}>Sign Out</button>
+  )
+}
+  
 function Chat(){
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt').limit(25);
-  const [messages] = useCollectionData(query, {idField:'id'});
+  console.log(useCollectionData(query, {idField:"id"}));
+  const [messages] = useCollectionData(query, { idField: 'id' });
   return(
 
     <div>
      {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
-      {console.log(messages)}
     </div>
   )
   
