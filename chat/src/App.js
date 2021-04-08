@@ -8,12 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBVWYvKa7pxSYlxXD9Kl4ztPKWbrm84_iY",
-  authDomain: "peak-emitter-303107.firebaseapp.com",
-  projectId: "peak-emitter-303107",
-  storageBucket: "peak-emitter-303107.appspot.com",
-  messagingSenderId: "589741657198",
-  appId: "1:589741657198:web:741a174f32ab1e3902ea7f"
+  //CONFIG
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -70,7 +65,10 @@ function Chat(){
   
 }
 function ChatMessage(props) {
-  const { text } = props.message;
-  return <p>{text}</p>
+  const { text, uid } = props.message;
+
+  const messageClass = uid === auth.currentUser.uid ? 'sent':'received';
+
+  return(<p>{text}</p>)
 }
 export default App;
