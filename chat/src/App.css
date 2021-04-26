@@ -19,9 +19,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
 .chat{
   border:1px solid white;
   min-height: 80vh;
@@ -29,15 +26,16 @@
 }
 .head{
   min-height: 10vh;
-  border:1px solid red;
 }
 .txts{
   min-height: 67vh;
-  border:1px solid green;
-}
+} 
 .input{
   min-height:3vh;
-  border:1px solid blue;
+  border-top: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 .textInput{
   width: 25vw;
@@ -53,4 +51,29 @@
 }
 .sign{
   min-width: 20vw;
+}
+.sign-out{
+  outline:none;
+}
+.send{
+  width:50px;
+  height:5vh;
+  margin-bottom: 0; 
+}
+.msgSent{
+  min-width: 30vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.msgReceived{
+  min-width: 30vw;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.chats{
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
 }
