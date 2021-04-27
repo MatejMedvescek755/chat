@@ -74,6 +74,8 @@
 }
 .chats{
   min-height: 65vh;
+  max-height: 65vh;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }

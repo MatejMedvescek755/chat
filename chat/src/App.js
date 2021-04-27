@@ -2,7 +2,7 @@ import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-import React, { useRef, useState } from 'react'
+import React, { Component, useRef, useState } from 'react'
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -41,6 +41,7 @@ function App() {
   );
 }
 
+
 function SignIn() {
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -74,11 +75,13 @@ function Chat() {
     })
     setFormValue('');
   }
+  let bottomDiv = React.createRef();
   return (
-
     <div>
       <div className="chats">
       {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+    <div ref={el =>{bottomDiv = el}}></div>
+    {bottomDiv.scrollIntoView()}
       </div>
       <form onSubmit = {sendMessage}>
         <div className="input"><input value={formValue} onChange={(e) =>{setFormValue(e.target.value)}} className="textInput"></input> <button className="send">send</button></div>
@@ -89,6 +92,7 @@ function Chat() {
 function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
+  console.log(uid)
   if(messageClass == 'sent'){
     return (<div className="msgSent">
     <p>{text}</p> <img className="icon"  src={photoURL}></img>
@@ -99,8 +103,4 @@ function ChatMessage(props) {
     </div>)
   }
 }
-
-
-
-
 export default App;
