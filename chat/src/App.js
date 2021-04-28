@@ -2,7 +2,8 @@ import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-import React, { Component, useRef, useState } from 'react'
+import React, { Component, useRef, useState } from 'react';
+import { withRouter } from "react-router-dom"
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -59,6 +60,7 @@ function SignOut() {
 }
 
 function Chat() {
+  const bottomDiv = useRef();
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt').limit(25);
   const [messages] = useCollectionData(query, { idField: 'id' });
@@ -74,14 +76,13 @@ function Chat() {
       photoURL
     })
     setFormValue('');
+    bottomDiv.current.scrollIntoView({behavior:"smooth"})
   }
-  let bottomDiv = React.createRef();
   return (
     <div>
       <div className="chats">
       {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
-    <div ref={el =>{bottomDiv = el}}></div>
-    {bottomDiv.scrollIntoView()}
+    <div ref={bottomDiv}></div>
       </div>
       <form onSubmit = {sendMessage}>
         <div className="input"><input value={formValue} onChange={(e) =>{setFormValue(e.target.value)}} className="textInput"></input> <button className="send">send</button></div>
