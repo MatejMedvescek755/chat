@@ -8,12 +8,17 @@
     "@testing-library/user-event": "^12.7.1",
     "dotenv": "^8.2.0",
     "firebase": "^8.2.7",
+    "firebase-admin": "^9.8.0",
+    "firebase-functions": "^3.14.1",
     "react": "^17.0.1",
+    "react-async-hook": "^3.6.2",
     "react-dom": "^17.0.1",
     "react-firebase-hooks": "^2.2.0",
+    "react-promise": "^3.0.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "react-scroll-into-view": "^1.8.2",
+    "react-use-promise": "^0.3.1",
     "web-vitals": "^1.1.0"
   },
   "scripts": {

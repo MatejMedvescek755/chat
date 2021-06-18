@@ -1,7 +1,10 @@
-*{
-  margin:0;
-  padding:0;
+@import url('https://fonts.googleapis.com/css2?family=Benne&family=Open+Sans&family=Roboto:wght@300&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
 }
+
 .App {
   text-align: center;
 }
@@ -10,7 +13,6 @@
   height: 40vmin;
   pointer-events: none;
 }
-
 
 .App-header {
   background-color: #282c34;
@@ -23,49 +25,196 @@
   color: white;
 }
 
-.chat{
-  border:1px solid white;
+.chat {
+  border: 1px solid white;
   min-height: 80vh;
   min-width: 30vw;
 }
-.head{
+
+.head {
   min-height: 10vh;
   background-color: #23272A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.txts{
+
+.main{
+  width:30vw;
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#sign{
+  width: 25vw;
+  height: 8vh;
+  display: flex;
+  flex-direction: row;
+}
+#sign:hover{
+  cursor: pointer;
+}
+.google-icon{
+  width: 8vw;
+  height: 7vh;
+  background-image: url("image/google-logo.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+.text-signin{
+  width:17vw;
+  height: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+
+}
+.txts {
   min-height: 67vh;
-} 
-.input{
-  min-height:3vh;
+}
+
+.input {
+  min-height: 3vh;
   border-top: white;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  outline: none;
 }
-.textInput{
-  width: 25vw;
+
+.textInput {
+  width: 24vw;
+  min-height: 4vh;
+  outline: none;
+  border-radius: 0.2em;
+  padding: 1vh;
+}
+
+.add {
+  width: 12vw;
   min-height: 5vh;
+  max-height: 5vh;
+  ;
+  outline: none;
 }
-.signIn{
-  min-height:80vh;
-  min-width: 30vw;
+
+
+
+.sign-out {
+  background-color: #EDE9F6;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  width: 5vw;
+  min-height: 4.5vh;
+  margin: 0 0.8vh 0.3vh 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  margin-left:3px;
 }
-.sign{
-  min-width: 20vw;
+
+.front-log-out{
+  display: block;
+  border-radius: 12px;
+  min-width: 5vw;
+  min-height: 4vh;
+  font-size: 1.25vh;
+  background-color: white;
+  color: black;
+  transform: translateY(-6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.sign-out{
-  outline:none;
+
+.front-log-out:active{
+  transform: translateY(-2px);
 }
-.send{
-  width:50px;
-  height:5vh;
-  margin-bottom: 0; 
+
+
+#text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.msgSent{
+
+
+
+.send {
+  background-color: #EDE9F6;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  width: 4vw;
+  min-height: 5vh;
+  margin: 0 0.8vh 0.3vh 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left:3px;
+  
+}
+.front {
+  display: block;
+  border-radius: 12px;
+  min-width: 4vw;
+  min-height: 4.9vh;
+  font-size: 1rem;
+  background-color: white;
+  color: black;
+  transform: translateY(-6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.send:active .front {
+  transform: translateY(-2px);
+}
+
+.btn-convo {
+  width: 50px;
+  height: 5vh;
+  margin-bottom: 0;
+}
+.btn-convo {
+  background-color: #EDE9F6;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  width: 4vw;
+  min-height: 5vh;
+  margin: 0 0.8vh 0.3vh 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left:3px;
+  
+}
+.front-side {
+  display: block;
+  border-radius: 12px;
+  min-width: 4vw;
+  height: 4vh;
+  font-size: 1rem;
+  background-color: white;
+  color: black;
+  transform: translateY(-6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.btn-convo:active .front-side {
+  transform: translateY(-2px);
+}
+
+.msgSent {
   min-width: fit-content;
   max-width: 20vw;
   display: flex;
@@ -74,33 +223,38 @@
   margin-bottom: 15px;
   align-self: flex-end;
   color: white;
+  font-size: 2vh;
 }
-.msgReceived{
+
+.msgReceived {
   min-width: fit-content;
-  max-width:20vw;
+  max-width: 20vw;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
   align-self: flex-end;
-  margin-bottom:15px;
+  margin-bottom: 15px;
   align-self: flex-start;
-  color:black;
+  color: black;
+  font-size: 2vh;
 }
-.msgReceived p{
+
+.msgReceived p {
   background: #e5e5ea;
   padding: 20px;
   border-radius: 30px;
   max-width: 20vw;
 }
-.msgSent p{
+
+.msgSent p {
   background: #0b93f6;
-  padding:20px;
-  border-radius:30px;
+  padding: 20px;
+  border-radius: 30px;
   max-width: 20vw;
 }
 
-.chats{
+.chats {
   min-height: 65vh;
   max-height: 65vh;
   display: flex;
@@ -108,7 +262,103 @@
   overflow-y: scroll;
   background-color: #2C2F33;
 }
-.icon{
-  border-radius:50%;
+
+.icon {
+  border-radius: 50%;
   max-height: 6vh;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.contacts {
+  height: 80vh;
+  width: 20vw;
+  border: 2px solid white;
+}
+
+@media only screen and (max-width:1300px) {
+  .contacts {
+    width: 20vw;
+  }
+}
+
+.convo {
+  display: flex;
+  min-height: 10vh;
+  background-color: #23272A;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact {
+  min-height: 50px;
+  min-width: 50px;
+  font-size: 1.5vh;
+}
+
+.add-contact {
+  min-height: 10vh;
+}
+
+.list {
+  min-height: 70vh;
+  min-width: 15vw;
+}
+
+.contact {
+  background-color: #23272A;
+  filter: brightness(90%);
+}
+
+.contact:hover {
+  opacity: 0.8;
+}
+
+.loading {
+  min-height: 60vh;
+  min-width: 15vw;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
