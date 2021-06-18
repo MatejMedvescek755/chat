@@ -9,6 +9,10 @@
   text-align: center;
 }
 
+.err{
+  color:black;
+  background-color:#ff3333;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -40,14 +44,14 @@
 }
 
 .main{
-  width:30vw;
+  width:25vw;
   min-height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 #sign{
-  width: 25vw;
+  width: 20vw;
   height: 8vh;
   display: flex;
   flex-direction: row;
@@ -63,7 +67,7 @@
   background-size: cover;
 }
 .text-signin{
-  width:17vw;
+  width:12vw;
   height: 7vh;
   display: flex;
   justify-content: center;

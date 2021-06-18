@@ -24,8 +24,6 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 const MyContext = React.createContext();
 var rid = "";
-
-
 var recieverRef;
 var senderRef;
 var receiverRefId;
@@ -38,10 +36,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <MyContext.Provider value={{
-        state:currentConvo,
-        setState:setCurrentConvo
-      }}>
+        <MyContext.Provider value={{
+          state: currentConvo,
+          setState: setCurrentConvo
+        }}>
           {user ? (
             <>
               <div className="contacts">
@@ -60,10 +58,10 @@ function App() {
               </div>
             </>
           ) : (<div className="main">
-              <SignIn />
+            <SignIn />
           </div>
           )}
-          </MyContext.Provider>
+        </MyContext.Provider>
       </header>
     </div>
   );
@@ -74,60 +72,56 @@ function NewConvo() {
   var display = false;
   var rid = formValue;
   var { uid, photoURL } = auth.currentUser;
-
-  function checkUser() {
-    const users = firestore.collection("messages/users/users");
-    users.where("uid", "==", rid).get();
-    console.log(users);
-    if (users) {
-      return false;
-    } else return true;
-  }
-
   const newConvo = async (e) => {
-    display = checkUser();
-    e.preventDefault();
-    if(formValue === ""){
-      display=true;
-    }
-    if (display) {
-
+    e.preventDefault()
+    if (formValue === "") {
+      display = true;
     } else {
-      const userRef = firestore.collection("messages/users/users/");
-      recieverRef = firestore.collection("messages/users/users/" + rid + "/convo/" + uid + "/" + uid);
-      senderRef = firestore.collection("messages/users/users/" + uid + "/convo/" + rid + "/" + rid);
-      senderRefId = firestore.collection("messages/users/users/" + uid + "/convo/").doc(rid);
-      receiverRefId = firestore.collection("messages/users/users/" + rid + "/convo/").doc(uid);
-      userRef.doc(uid).get(formValue).then((doc) => {
-        if (doc.exists) {
-          console.log("we are in");
-          recieverRef.add({
-            text: "",
-            uid,
-            photoURL,
-          });
-          receiverRefId.set({
-            text: uid,
-            uid,
-          });
-          senderRefId.set({
-            text: rid,
-            uid,
-          });
-        } else {
-          console.log("user doesnt exist");
-        }
-        userRef.doc(rid).get(formValue).then((doc) => {
-          if (doc.exists) {
-            senderRef.add({
-              text: "",
-              uid,
-              photoURL,
+      const users = firestore.collection("messages/users/users");
+      users.where("uid", "==", rid).get().then((snap) => {
+        console.log(snap.empty)
+        if (snap.empty)
+          console.log("user doesnt exist")
+        else {
+          console.log("heyy")
+          const userRef = firestore.collection("messages/users/users/");
+          recieverRef = firestore.collection("messages/users/users/" + rid + "/convo/" + uid + "/" + uid);
+          senderRef = firestore.collection("messages/users/users/" + uid + "/convo/" + rid + "/" + rid);
+          senderRefId = firestore.collection("messages/users/users/" + uid + "/convo/").doc(rid);
+          receiverRefId = firestore.collection("messages/users/users/" + rid + "/convo/").doc(uid);
+          userRef.doc(uid).get(formValue).then((doc) => {
+            if (doc.exists) {
+              console.log("we are in");
+              recieverRef.add({
+                text: "",
+                uid,
+                photoURL,
+              });
+              receiverRefId.set({
+                text: uid,
+                uid,
+              });
+              senderRefId.set({
+                text: rid,
+                uid,
+              });
+            } else {
+              console.log("user doesnt exist");
+            }
+            userRef.doc(rid).get(formValue).then((doc) => {
+              if (doc.exists) {
+                senderRef.add({
+                  text: "",
+                  uid,
+                  photoURL,
+                });
+              }
             });
-          }
-        });
+          });
+        }
       });
     }
+
   };
   return (
     <>
@@ -140,8 +134,8 @@ function NewConvo() {
           }}
         ></input>
         <button className="btn-convo"><span className="front-side">
-            add
-          </span></button>
+          add
+        </span></button>
         {display && <div className="err">user doesn't exist</div>}
       </form>
     </>
@@ -163,9 +157,9 @@ function Contacts() {
       snapshot.forEach((doc) => {
         const data = doc.data().text;
         convos.push(data);
-      });setItem(convos);}).catch((error) => console.log(error));
+      }); setItem(convos);
+    }).catch((error) => console.log(error));
   }, []);
-  console.log(item);
   if (empty) {
     <Empty></Empty>;
   } else {
@@ -174,11 +168,10 @@ function Contacts() {
         return (
           <div className="list">
             {item && item.map((doc) => {
-                console.log("inside");
-                return (
-                  <Contact className="contact" text={doc} key={doc}></Contact>
-                );
-              })}
+              return (
+                <Contact className="contact" text={doc} key={doc}></Contact>
+              );
+            })}
           </div>
         );
       } else {
@@ -197,19 +190,15 @@ function Contacts() {
 }
 
 function Contact(props) {
-  console.log("test");
   const uid = auth.currentUser.uid;
-  console.log(props);
   const { text, photoURL } = props;
   var setCurrentConvo = useContext(MyContext);
   setCurrentConvo = setCurrentConvo.setState
   return (
     <>
       <div className="contact " onClick={() => {
-        console.log("event")
-        console.log("messages/users/users/"+uid+"/convo/"+text+"/"+text)
         rid = text
-        setCurrentConvo(firestore.collection("messages/users/users/"+uid+"/convo/"+text+"/"+text))
+        setCurrentConvo(firestore.collection("messages/users/users/" + uid + "/convo/" + text + "/" + text))
       }}>
         <img className="icon" src={photoURL}></img>
         <p>{text}</p>
@@ -262,8 +251,8 @@ function SignIn() {
 
   return (
     <button id="sign" onClick={signInWithGoogle}>
-        <div className="google-icon"></div>
-        <div className="text-signin">sign in with google</div>
+      <div className="google-icon"></div>
+      <div className="text-signin">sign in with google</div>
     </button>
   );
 }
@@ -272,11 +261,11 @@ function SignOut() {
   handler = handler.setState;
   return (
     auth.currentUser && (
-      <button className="sign-out" onClick={() =>{
+      <button className="sign-out" onClick={() => {
         handler(firestore.collection("group"))
-      rid = "";
-      auth.signOut()
-      } }>
+        rid = "";
+        auth.signOut()
+      }}>
         <span className="front-log-out">
           Sign Out
         </span>
@@ -293,28 +282,28 @@ function Chat() {
   const [messages] = useCollectionData(query, { idField: "id" });
   const [formValue, setFormValue] = useState("");
   const sendMessage = async (e) => {
-  const { uid, photoURL } = auth.currentUser;
-  e.preventDefault();
-  if(formValue !== ""){
-    await messagesRef.add({
-      text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
-      photoURL,
-    });
-    console.log(rid)
-    if(rid !== ""){
-      await firestore.collection("messages/users/users/"+rid+"/convo/"+uid+"/"+uid).add({
+    const { uid, photoURL } = auth.currentUser;
+    e.preventDefault();
+    if (formValue !== "") {
+      await messagesRef.add({
         text: formValue,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         uid,
         photoURL,
       });
+      console.log(rid)
+      if (rid !== "") {
+        await firestore.collection("messages/users/users/" + rid + "/convo/" + uid + "/" + uid).add({
+          text: formValue,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          uid,
+          photoURL,
+        });
+      }
+      setFormValue("");
+      bottomDiv.current.scrollIntoView({ behavior: "smooth" });
     }
-    setFormValue("");
-    bottomDiv.current.scrollIntoView({ behavior: "smooth" });
-  }
-    
+
   };
   return (
     <div>
