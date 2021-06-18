@@ -39,10 +39,22 @@
   min-height: 10vh;
   background-color: #23272A;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 }
+.info{
+  height: 10vh;
+  display: flex;
+  align-items: center;
 
+}
+.info-btn{
+  width: 3vw;
+  height: 3vw;
+  border-radius:50%;
+  font-weight: 900;
+}
 .main{
   width:25vw;
   min-height: 50vh;

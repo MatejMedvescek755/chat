@@ -51,6 +51,16 @@ function App() {
               <div className="chat">
                 <div className="head">
                   <SignOut />
+                  <div className="info">
+                  <button className="sign-out" onClick={()=>{
+                    const uid = auth.currentUser.uid;
+                    navigator.clipboard.writeText(uid)
+                  }} >
+                    <span className="front-log-out">
+                      copy my id
+                    </span>
+                  </button>
+                  </div>
                 </div>
                 <div className="txts">
                   <Chat />
@@ -69,19 +79,19 @@ function App() {
 
 function NewConvo() {
   const [formValue, setFormValue] = useState("");
-  var display = false;
+  var [display, setDisplay] = useState(false);
   var rid = formValue;
   var { uid, photoURL } = auth.currentUser;
   const newConvo = async (e) => {
     e.preventDefault()
     if (formValue === "") {
-      display = true;
+      setDisplay(true);
     } else {
       const users = firestore.collection("messages/users/users");
       users.where("uid", "==", rid).get().then((snap) => {
         console.log(snap.empty)
         if (snap.empty)
-          console.log("user doesnt exist")
+          setDisplay(true)
         else {
           console.log("heyy")
           const userRef = firestore.collection("messages/users/users/");
@@ -136,8 +146,8 @@ function NewConvo() {
         <button className="btn-convo"><span className="front-side">
           add
         </span></button>
-        {display && <div className="err">user doesn't exist</div>}
       </form>
+      {display && <div className="err">user doesn't exist</div>}
     </>
   );
 }
